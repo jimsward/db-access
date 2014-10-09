@@ -2,6 +2,7 @@
 <?php
 
 
+
 // Add a menu for our option page
 add_action('admin_menu', 'db_access_myplugin_add_page');
 function db_access_myplugin_add_page() {
@@ -16,11 +17,10 @@ function db_access_myplugin_option_page() {
    
    <?php wp_enqueue_script('jquery-ui-tooltip'); ?>
    
-    <script>
+    <script>	
     jQuery(function(){
-		
-		//jQuery( '#wpbody-content' ).tooltip();
-		
+				
+		//validate input of export filename
 		jQuery(':input#db_access_export_file').on( 'change', function(event){
 			var valid,
 			validate = /[A-Za-z0-9.-]\.csv/;
@@ -33,44 +33,32 @@ function db_access_myplugin_option_page() {
 				}			
 			})
 			
+			//this is the donate button
 			<?php $plugindir =  plugins_url() . "/db-access";
-
-$donateimg = $plugindir . "/images/paypal-donate.png"; ?>
+			$donateimg = $plugindir . "/images/paypal-donate.png"; ?>
 			
 			var dntbtn = ''
 			dntbtn += '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">'
 			dntbtn += '<input type="hidden" name="cmd" value="_xclick">'
-			dntbtn += '<input type="hidden" name="business" value="jim@JimSward.com">'
-			
+			dntbtn += '<input type="hidden" name="business" value="jim@JimSward.com">'			
 			dntbtn += '<input type="hidden" name="lc" value="PT">'
 			dntbtn += '<input type="hidden" name="item_name" value="Donation">'
 			dntbtn += '<input type="hidden" name="button_subtype" value="services">'
 			dntbtn +='<input type="hidden" name="no_note" value="0">'
-			dntbtn +='<input type="hidden" name="currency_code" value="USD">'
-
-			
-			
+			dntbtn +='<input type="hidden" name="currency_code" value="USD">'			
 			dntbtn += '<table>'
 			dntbtn += '<tr><td><input type="hidden" name="on0" value="Contribute">Contribute to Author</td></tr><tr><td> </td></tr>'
-			dntbtn += '</table>'
-			
+			dntbtn += '</table>'			
 			dntbtn += '<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest">'
 			dntbtn += '<input type="image" src=<?php echo  $donateimg; ?> border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">'
-			dntbtn += '<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">'
-			
+			dntbtn += '<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">'			
 			dntbtn += '</form>'
 			
 			
 			jQuery( '<div/>' ).html( dntbtn ).prependTo( '.settings' )
 			.find( 'td' ).css( 'font-size', '18px' )
-			jQuery( '#heading' ).css( 'margin-top', '30px' )
-			
-			
-			
-					
-		})
-	
-		
+			jQuery( '#heading' ).css( 'margin-top', '30px' )					
+		})		
     </script>
     
     
@@ -212,16 +200,9 @@ function db_access_myplugin_section_text() {
 // Display and fill the form field
 function db_access_myplugin_setting_input() {
 	
-	//$option = get_option('db_access_export_file');
-	
-	?>
-	
+	?>	
  <input type="text" id="db_access_export_file" name="db_access_export_file" value=" <?php echo get_option( 'db_access_export_file' ); ?>  " size="30" />	
 <?php }
-
-		
-
-
 
 function db_access_myplugin_setting_input3() {
 	$check = get_option('db_access_pagination') ? 'checked="checked" ' : '';	
@@ -252,9 +233,6 @@ function db_access_myplugin_setting_input3() {
 	$check = get_option('db_access_editable') ? 'checked="checked" ' : '';	
 	echo "<input type='checkbox' id='db_access_editable' title='Remember to backup the databae before you make any changes'  name='db_access_editable'  $check />";
 	}
-	
-		
-
 ?>
 
 

@@ -29,7 +29,7 @@ License: GPLv2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	*/
 
-//Initialize options to default values. Once set, add_option() ignores values
+//Initialize options to default values. Once set, add_option() ignores these values
 add_option( 'db_access_export_file', 'myTable.csv' );
 add_option( 'db_access_pagination', 'on' );
 add_option( 'db_access_filters', 'on' );
@@ -39,15 +39,8 @@ add_option( 'db_access_output', 'on' );
 add_option( 'db_access_crosshairs', 'on' );
 add_option( 'db_access_editable', '' );
 
-
-
-
-
-
  include("settings-page.php"); // creates admin page for db-access and a settings page both on the dashboard
  
- 
-
  add_filter('plugin_row_meta', 	'db_access_set_plugin_meta', 2, 10);
  function db_access_set_plugin_meta( $links, $file ) { // Add a link to this plugin's settings page
 	static $this_plugin;
@@ -58,8 +51,6 @@ add_option( 'db_access_editable', '' );
 	}
 	return $links; 
 }
-
-
 
 function db_access_menu_page_display() {
     // Create a header in the default WordPress 'wrap' container
@@ -106,7 +97,7 @@ function db_access_menu_page_display() {
 	
 	
 	
-	
+	//make a js object - dbaSettings - available to the script gettables.js
 	wp_localize_script( 'db_access', 'dbaSettings', array ( 'plugindir' => $plugindir,
 	'export_file'	=> get_option('db_access_export_file'),
 	'pagination'	=> get_option('db_access_pagination'),

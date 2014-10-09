@@ -1,7 +1,8 @@
 /*Get the names of each table in db; populate a dropdown. Get the selected table's 
 data. Use it to render an HTML table; with pagination, sortable, highlightable,
 filterable, printable, exportable, and with ability to remove one or more
-columns (from the HTML table not the mySQL table)
+columns (from the HTML table not the mySQL table).
+Optional feature: Modify the contents of a cell and save the change to the database.
 */
 jQuery(function(){
 	//setup filter on tablesorter to use regexp '^'	
@@ -28,22 +29,19 @@ jQuery.tablesorter.filter.types.end = function( filter, iFilter, exact, iExact )
 //file and the widgets selected by the user to be active - these go in widgetArr to be passed as
 //arguments to tablesorter 
 
-var plugindir = dbaSettings.plugindir;
+var plugindir = dbaSettings.plugindir; 
+
+//set the plugindir and export_file to null; prevents pushing them to widgetArr
 dbaSettings.plugindir = '';
 var exportFile = dbaSettings.export_file;
 dbaSettings.export_file = '';
  
+ //widgetArr holds the names of widgets selected by the user in the stettings page to be active
 	var widgetArr = [];	
-		jQuery.each( dbaSettings, function(key, value){
-			
+		jQuery.each( dbaSettings, function(key, value){			
 		if ( value ) widgetArr.push(key);				
 		} );
-jQuery.each(widgetArr, function(key, value){
-	
-	});
-	
-	
-			  
+					  
 	//PHP script uses SHOW TABLES to get the names of each of the tables in the database
 	jQuery.getJSON( plugindir + '/tables.php', function( data ) {		
 	var items = ['<option value="">&mdash; Choose a Table &mdash;</option>'];	
@@ -57,7 +55,8 @@ jQuery.each(widgetArr, function(key, value){
     'class': 'tables',
     html: items.join( '' )
   }).appendTo( 'div.wrap' );
-  //get the selected database table and display the rows in an HTML table  
+  //get the selected database table and display the rows in an HTML table 
+  //but first remove old table and widget elements 
     jQuery( ' select.tables ' ).on( 'change', function(e){	  
 	  jQuery('table').remove();
 	  jQuery('.prntBtn').remove();
@@ -75,7 +74,6 @@ jQuery.each(widgetArr, function(key, value){
 	jQuery.getJSON( plugindir + '/showtables.php', selected, function( data ) {		
 	var txt = '<thead>';	
 	txt += '<tr>';	
-	
 	jQuery.each( data[0], function( key, value ){
 		txt += '<th>' + key + '</th>';		
 		});
@@ -85,13 +83,12 @@ jQuery.each(widgetArr, function(key, value){
 	for( var i in data )//get each key/value pair (object) out of the JSON object passed from the server and create a td
     {
 	var items = [];
-  jQuery.each( data[i], function( key, value ) {
-	  	  	
-    items.push( '<td><textarea>'  + value + '</textarea></td>' );//ie disallows editing of cells, wrap the value in a <textarea> in the <td>
-	
+  jQuery.each( data[i], function( key, value ) {	  	  	
+    items.push( '<td><textarea>'  + value + '</textarea></td>' );//ie disallows editing of cells, wrap the value in a <textarea> in the <td>	
 	      });
     txt += '<tr>' + items.join( '' ) + '</tr>'; 
-	}//for loop			
+	}//for loop		
+			
 	jQuery( '<table/>' )
 	.html( txt )
 	.addClass( 'widefat tablesorter tbl' )
@@ -143,37 +140,31 @@ jQuery.each(widgetArr, function(key, value){
 	  //this is just a hook into the editable widget so we can take the new content of the cell
 	  //and get its 1st sybling as the key to the sql data row	  
 	  editable_validate : function( text, orig, $this ){
-		  	  $this = $this.parent();     //since we wrapped divs into each cell to appease ie,		   
-		  		console.log(text)					 	 //we need to get the parent (td)
-										// console.log('HERE')
-		   	  var data = {			  
+		  	  $this = $this.parent();     //since we wrapped textareas into each cell to appease ie,		   
+		  							 	 //we need to get the parent (td)
+			var data = {			  
 			  table : selected.tablename,
 			  keyname : jQuery( 'th' ).eq(0).text(),
 			  key : $this.siblings().eq( 0 ).text(),
 			  col : jQuery('th').eq( $this.index()).text(),
 			  text : text
-			  };
-			  
+			  };			  
 			  jQuery.post( plugindir + '/update-cell.php', data,
 			  
 			  //dialog popup to inform user of success. But only for 10 seconds.
-			  function(){
-				  
-				  
-				  
+			  function(){				  
 				  jQuery( '<div/>', { 'id' : 'inptTxt' } ).text( 'The text has been added to the database' )
 				  .dialog( { height: 70 } );
 				  var timeout = setTimeout(function() {
-     			  jQuery( '#inptTxt' ).dialog( 'close' )
+     			  jQuery( '#inptTxt' ).dialog( 'close' );
 				  }, 5000);
 				  }			  
 			   );
 			   jQuery( 'div#inptTxt' ).remove();
 			  return (text);
 		  }
-    }	
-	 });
-	 
+    }//end editable_validate	
+	 });//end object passed to tablesorter	 
 	 
 	/*The table is now loaded and has sortability*/
 	
@@ -219,11 +210,10 @@ if (dbaSettings.pagination)
 	
 	jQuery( 'div.columnSelectorWrapper' ).append( '<input type="button" class="exportBtn" value="Export">' );
 	jQuery('.exportBtn').on('click', function(){	  
-	  jQuery( '#myTable' ).trigger( 'outputTable' );  
-	   }); 
-				
-	jQuery( '[value=""]',e.target).remove(); //remove option with "Choose a Table" from the dropdown
-			}); 		
+	jQuery( '#myTable' ).trigger( 'outputTable' );  
+	   });				
+	jQuery( '[value=""]', e.target ).remove(); //remove option with "Choose a Table" from the dropdown
+				}); 		
 		});  
 	});//success callback
 });

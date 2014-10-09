@@ -9,7 +9,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A tool for viewing, sorting, searching, exporting,
-printing, and manipulating the contents of HTML tables derived  
+printing, manipulating the contents of HTML tables derived  
 from tables found in your database.
 
 == Description ==
@@ -57,6 +57,8 @@ The table as it is typically displayed with captions describing various function
 = 0.8 =
 * Added feature to change cells in the database.
 * Added Crosshair, a jQuery plugin to highlight a cell's column and row on mouseover.
+
+== Upgrade Notice ==
 
 
 
