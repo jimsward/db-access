@@ -1,7 +1,7 @@
 
 <?php
 
-
+$plugindir = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) );
 
 // Add a menu for our option page
 add_action('admin_menu', 'db_access_myplugin_add_page');
@@ -34,7 +34,7 @@ function db_access_myplugin_option_page() {
 			})
 			
 			//this is the donate button
-			<?php $plugindir =  plugins_url() . "/db-access";
+			<?php global $plugindir;
 			$donateimg = $plugindir . "/images/paypal-donate.png"; ?>
 			
 			var dntbtn = ''

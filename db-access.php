@@ -59,7 +59,8 @@ function db_access_menu_page_display() {
     $html .= '</div>';
 	echo $html;
 		
-	$plugindir =  plugins_url() . "/db-access";
+	
+	$plugindir = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) );
 	$tablescript = $plugindir . "/includes/tablesorter/js/jquery.tablesorter.js";
     wp_enqueue_script( "ts", $tablescript  );
 	$tablewdg = $plugindir . "/includes/tablesorter/js/jquery.tablesorter.widgets.js";

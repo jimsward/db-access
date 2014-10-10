@@ -4,7 +4,7 @@ Donate link: http://jimsward.com/db-access
 Tags: database, mysql, search, replace, admin, security
 Requires at least: 3.8
 Tested up to:4.0
-Stable tag: 0.8
+Stable tag: 0.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,11 +54,15 @@ The table as it is typically displayed with captions describing various function
 
 == Changelog ==
 
-= 0.8 =
+= 0.8.1 ==
+Plugin doesn't need to know name of containing folder.
+
+= 0.8.0 =
 * Added feature to change cells in the database.
 * Added Crosshair, a jQuery plugin to highlight a cell's column and row on mouseover.
 
 == Upgrade Notice ==
+
 
 
 
