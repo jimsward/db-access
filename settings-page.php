@@ -1,6 +1,4 @@
-
 <?php
-
 $plugindir = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) );
 
 // Add a menu for our option page
@@ -234,6 +232,3 @@ function db_access_myplugin_setting_input3() {
 	echo "<input type='checkbox' id='db_access_editable' title='Remember to backup the databae before you make any changes'  name='db_access_editable'  $check />";
 	}
 ?>
-
-
-
