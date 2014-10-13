@@ -55,6 +55,7 @@ dbaSettings.export_file = '';
     'class': 'tables',
     html: items.join( '' )
   }).appendTo( 'div.wrap' );
+  
   //get the selected database table and display the rows in an HTML table 
   //but first remove old table and widget elements 
     jQuery( ' select.tables ' ).on( 'change', function(e){	  
@@ -64,11 +65,10 @@ dbaSettings.export_file = '';
 	  jQuery('.exportBtn').remove();
 	  jQuery( 'div.columnSelectorWrapper' ).remove();
 	  
-	  var csLabel = dbaSettings.columnSelector ? 'Column Selector' : '';
-	  
+	  var csLabel = dbaSettings.columnSelector ? 'Column Selector' : '';	  
 	  jQuery( 'div.wrap' )
 	  .append( '<div class="columnSelectorWrapper"><label class="columnSelectorButton" for="colSelect1"></label><div id="columnSelector" class="columnSelector"></div></div>' );
-	  	jQuery( '.columnSelectorButton' ).html( csLabel );
+	  jQuery( '.columnSelectorButton' ).html( csLabel );
 		  	  
 	  var selected = { 'tablename' : e.target.value };
 	jQuery.getJSON( plugindir + '/showtables.php', selected, function( data ) {		
@@ -78,13 +78,12 @@ dbaSettings.export_file = '';
 		txt += '<th>' + key + '</th>';		
 		});
 		txt += '</tr>';
-		txt += '</thead>';
-				
+		txt += '</thead>';				
 	for( var i in data )//get each key/value pair (object) out of the JSON object passed from the server and create a td
     {
 	var items = [];
   jQuery.each( data[i], function( key, value ) {	  	  	
-    items.push( '<td><textarea>'  + value + '</textarea></td>' );//ie disallows editing of cells, wrap the value in a <textarea> in the <td>	
+    items.push( '<td><textarea>'  + value + '</textarea></td>' );//ie disallows editing of cells, wrap the value in a <textarea> inside the <td>	
 	      });
     txt += '<tr>' + items.join( '' ) + '</tr>'; 
 	}//for loop		
@@ -151,7 +150,7 @@ dbaSettings.export_file = '';
 			  };			  
 			  jQuery.post( plugindir + '/update-cell.php', data,
 			  
-			  //dialog popup to inform user of success. But only for 10 seconds.
+			  //dialog popup to inform user of success. But only for 5 seconds.
 			  function(){				  
 				  jQuery( '<div/>', { 'id' : 'inptTxt' } ).text( 'The text has been added to the database' )
 				  .dialog( { height: 70 } );

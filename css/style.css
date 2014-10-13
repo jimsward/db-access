@@ -27,7 +27,7 @@ th, td { border-left : solid 1px #dddddd; border-right : solid 1px #dddddd;}
   display: none;
 }
 
-
+.ui-dialog-content {height:60px; }
 
 td textarea {height:200px; width:inherit; float:right }
 

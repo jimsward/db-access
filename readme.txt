@@ -4,7 +4,7 @@ Donate link: http://jimsward.com/db-access
 Tags: database, mysql, search, replace, admin, security
 Requires at least: 3.8
 Tested up to:4.0
-Stable tag: 0.8.0
+Stable tag: 0.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,13 @@ You do regularly backup your database, don't you?
 The table as it is typically displayed with captions describing various functions.
 
 == Changelog ==
+
+= 0.8.3 ==
+Fixed dialog box height
+Readme
+
+= 0.8.2 ==
+Fixed headers problem
 
 = 0.8.1 ==
 Plugin doesn't need to know name of containing folder.
