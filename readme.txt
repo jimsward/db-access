@@ -4,7 +4,7 @@ Donate link: http://jimsward.com/db-access
 Tags: database, mysql, search, replace, admin, security
 Requires at least: 3.8
 Tested up to:4.0
-Stable tag: 0.8.3
+Stable tag: 0.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ You do regularly backup your database, don't you?
 The table as it is typically displayed with captions describing various functions.
 
 == Changelog ==
+
+= 0.8.4 ==
+Again with the dialog box
 
 = 0.8.3 ==
 Fixed dialog box height
