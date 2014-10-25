@@ -4,7 +4,7 @@ Donate link: http://jimsward.com/db-access
 Tags: database, mysql, search, replace, admin, security
 Requires at least: 3.8
 Tested up to:4.0
-Stable tag: 0.8.4
+Stable tag: 0.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,7 +42,7 @@ You can filter any column by entering a regular expression in the box at the top
 You can edit the contents of nearly any cell and it will be saved to the database. The first column in
 each row is not editable as it is the index field. This feature is turned off by default.
 Use the settings page to turn it on or to turn off any features you don't want/need.
-With the feauture turned off, you can still make changes onscreen. But, they won't be saved to the database.
+With the feature turned off, you can still make changes onscreen. But, they won't be saved to the database.
 If you are going to make any changes, be sure to have a current backup of your database available.
 You do regularly backup your database, don't you?
 
@@ -53,6 +53,9 @@ You do regularly backup your database, don't you?
 The table as it is typically displayed with captions describing various functions.
 
 == Changelog ==
+
+= 0.8.5 ==
+Minor housekeeping
 
 = 0.8.4 ==
 Again with the dialog box
