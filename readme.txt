@@ -4,7 +4,7 @@ Donate link: http://jimsward.com/db-access
 Tags: database, mysql, search, replace, admin, security
 Requires at least: 3.8
 Tested up to:4.0
-Stable tag: 0.8.5
+Stable tag: 0.8.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,10 @@ You do regularly backup your database, don't you?
 The table as it is typically displayed with captions describing various functions.
 
 == Changelog ==
+
+= 0.8.6 ==
+Moved all the AJAX handlers to db-access.php
+Sanitized contents of $_POST
 
 = 0.8.5 ==
 Minor housekeeping

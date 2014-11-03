@@ -5,6 +5,7 @@ columns (from the HTML table not the mySQL table).
 Optional feature: Modify the contents of a cell and save the change to the database.
 */
 jQuery(function(){
+	
 	//setup filter on tablesorter to use regexp '^'	
 	jQuery.tablesorter.filter.types.start = function( filter, iFilter, exact, iExact ) {
   if ( /^\^/.test( iFilter ) ) {
@@ -30,7 +31,6 @@ jQuery.tablesorter.filter.types.end = function( filter, iFilter, exact, iExact )
 //arguments to tablesorter 
 
 var plugindir = dbaSettings.plugindir; 
-
 //set the plugindir and export_file to null; prevents pushing them to widgetArr
 dbaSettings.plugindir = '';
 var exportFile = dbaSettings.export_file;
@@ -43,7 +43,8 @@ dbaSettings.export_file = '';
 		} );
 					  
 	//PHP script uses SHOW TABLES to get the names of each of the tables in the database
-	jQuery.getJSON( plugindir + '/tables.php', function( data ) {		
+	var dataObj = { 'action' : 'tables_action' };
+	jQuery.getJSON( ajaxurl, dataObj , function( data ) {		
 	var items = ['<option value="">&mdash; Choose a Table &mdash;</option>'];	
 	for( var i in data )//get each key/value pair (object) out of the JSON object passed from the server
     {	
@@ -70,8 +71,9 @@ dbaSettings.export_file = '';
 	  .append( '<div class="columnSelectorWrapper"><label class="columnSelectorButton" for="colSelect1"></label><div id="columnSelector" class="columnSelector"></div></div>' );
 	  jQuery( '.columnSelectorButton' ).html( csLabel );
 		  	  
-	  var selected = { 'tablename' : e.target.value };
-	jQuery.getJSON( plugindir + '/showtables.php', selected, function( data ) {		
+	  var selected = { 'action' : 'showtables_action', 
+	  'tablename' : e.target.value };
+	jQuery.getJSON( ajaxurl, selected, function( data ) {		
 	var txt = '<thead>';	
 	txt += '<tr>';	
 	jQuery.each( data[0], function( key, value ){
@@ -141,14 +143,14 @@ dbaSettings.export_file = '';
 	  editable_validate : function( text, orig, $this ){
 		  	  $this = $this.parent();     //since we wrapped textareas into each cell to appease ie,		   
 		  							 	 //we need to get the parent (td)
-			var data = {			  
+			var data = { 'action' : 'update_cell_action',			  
 			  table : selected.tablename,
 			  keyname : jQuery( 'th' ).eq(0).text(),
 			  key : $this.siblings().eq( 0 ).text(),
 			  col : jQuery('th').eq( $this.index()).text(),
 			  text : text
 			  };			  
-			  jQuery.post( plugindir + '/update-cell.php', data,
+			  jQuery.post( ajaxurl, data,
 			  
 			  //dialog popup to inform user of success. But only for 5 seconds.
 			  function(){				  

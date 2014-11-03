@@ -5,7 +5,7 @@ Plugin URI: http://jimsward.com/db-access
 Description: A tool for viewing, sorting, searching, exporting,
 printing, and manipulating the contents of HTML tables derived  
 from tables found in your WordPress database.
-Version: 0.8.5
+Version: 0.8.6
 Author: Jim Sward
 Author URI: http://JimSward.com
 License: GPLv2
@@ -119,4 +119,58 @@ function dbaccess_create_menu() {
 	add_menu_page( 'dbaccess', 'dbaccess', 'manage_options', __FILE__, 'db_access_menu_page_display' );
 }
 	add_action( 'admin_menu', 'dbaccess_create_menu' );
+	
+	
+	//AJAX handlers
+	add_action( 'wp_ajax_tables_action', 'tables_action_callback' );
+function tables_action_callback() {
+	global $wpdb;
+	$sql = "SHOW TABLES";
+//respond with a list of tables to populate the dropdown list
+$results = $wpdb->get_results($sql );
+$send = json_encode($results);
+echo $send;
+	die();
+}
+
+	add_action( 'wp_ajax_showtables_action', 'showtables_action_callback' );
+function showtables_action_callback() {
+	global $wpdb;
+	
+$tablename = $_GET['tablename'];
+
+$results = $wpdb->get_results( 
+	"
+	SELECT * 
+	FROM $tablename
+	WHERE 1
+	"
+);
+$send = json_encode($results);
+echo $send;
+	die();
+}
+
+add_action( 'wp_ajax_update_cell_action', 'update_cell_action_callback' );
+function update_cell_action_callback() {
+global $wpdb;
+	
+$table = sanitize_text_field( $_POST['table'] );
+$keyname = sanitize_text_field( $_POST['keyname'] );
+$key = sanitize_text_field( $_POST['key'] );
+$col = sanitize_text_field( $_POST['col'] );
+$text = sanitize_text_field( $_POST['text'] );
+
+	//we don't want any escaping inserted with the text
+	$wpdb->query(
+	"
+	UPDATE $table
+    SET $col = '$text' 
+    WHERE $keyname = $key
+	"
+	);	
+
+	die();
+}	
+	
 ?>
