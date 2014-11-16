@@ -4,7 +4,7 @@ Donate link: http://jimsward.com/db-access
 Tags: database, mysql, search, replace, admin, security
 Requires at least: 3.8
 Tested up to:4.0
-Stable tag: 0.8.6
+Stable tag: 0.8.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,7 @@ There is a feature that hightlights the row and column of a cell when you mouseo
 
 == Installation ==
 
-1. Upload `db-access.php` to the `/wp-content/plugins/` directory
+1. Upload the plugin to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 

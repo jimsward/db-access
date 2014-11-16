@@ -5,7 +5,7 @@ Plugin URI: http://jimsward.com/db-access
 Description: A tool for viewing, sorting, searching, exporting,
 printing, and manipulating the contents of HTML tables derived  
 from tables found in your WordPress database.
-Version: 0.8.6
+Version: 0.8.7
 Author: Jim Sward
 Author URI: http://JimSward.com
 License: GPLv2
